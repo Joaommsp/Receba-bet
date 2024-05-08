@@ -18,7 +18,7 @@ import {
 
 import { firebase, db } from "../../services/firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 import styles from "./styles";
 
@@ -47,14 +47,12 @@ export default function SignUp({ navigation }) {
         const user = userCredential.user;
         console.log(user);
 
-        const docRef = await addDoc(collection(db, "users"), {
-          id: userCredential.user.uid,
+        const usersRef = collection(db, "users");
+        await setDoc(doc(usersRef, user.uid), {
+          name: userName,
           email: email,
           password: password,
-          nome: userName,
         });
-
-        console.log("Document written with ID: ", docRef.id);
 
         if (user) {
           navigation.navigate("Home");
