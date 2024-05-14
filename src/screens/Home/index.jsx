@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useState } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -41,8 +41,12 @@ const Home = ({ navigation }) => {
     userLogged && (
       <View style={styles.homeContainer}>
         <View style={styles.header}>
-          <View style={styles.userInfos}>
-            <Text style={styles.userName} >Olá {userName}</Text>
+          <View style={styles.userMenu}>
+            <Text style={styles.userName}>Olá {userName}</Text>
+            <Image
+              style={styles.userImage}
+              source={require("../../../assets/images/default-user-image.png")}
+            />
           </View>
         </View>
       </View>

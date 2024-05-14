@@ -79,9 +79,6 @@ export default function Login({ navigation }) {
             secureTextEntry
           />
         </View>
-
-        <View style={styles.credentialControl}></View>
-
         <TouchableOpacity onPress={Login} style={styles.formButtonSubmit}>
           <Text style={styles.formButtonText}>Login</Text>
         </TouchableOpacity>

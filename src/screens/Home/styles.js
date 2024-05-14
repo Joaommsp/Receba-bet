@@ -9,11 +9,28 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    padding: 24
+    padding: 24,
+  },
+
+  userMenu: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 24,
+    backgroundColor: "#EEEEEE",
+
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingHorizontal: 10,
   },
 
   userName: {
     color: "#FFFFFF",
+  },
+
+  userImage: {
+    width: 24,
+    height: 24,
   },
 });
 

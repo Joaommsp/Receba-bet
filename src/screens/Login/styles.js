@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
   formContainer: {
     width: "100%",
-    height: "50%",
+    height: "65%",
     gap: 18,
     alignItems: "center",
     paddingTop: 20,
