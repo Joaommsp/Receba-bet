@@ -16,6 +16,7 @@ import styles from "./styles";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(null);
 
   const [fontLoaded] = useFonts({
     Inter_300Light,
@@ -28,22 +29,44 @@ export default function Login({ navigation }) {
   }
 
   const Login = () => {
+    if (email == "") {
+      setLoginError("Insira seu e-mail");
+      resetErrorMessage();
+    } else if (password == "") {
+      setLoginError("Insira sua senha");
+      resetErrorMessage();
+    } else if (email == "" && password == "") {
+      setLoginError("Preencha todos os campos");
+      resetErrorMessage();
+    }
+
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user
-        
-        if(user) {
-          navigation.navigate("Home")
+        const user = userCredential.user;
+
+        if (user) {
+          navigation.navigate("Application");
         }
-        ;
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorMessage);
+        if (loginError == null) {
+          setLoginError(errorMessage);
+          resetErrorMessage();
+        }
       });
+  };
+
+  const resetErrorMessage = () => {
+    const timeToReset = setInterval(() => {
+      setLoginError(null);
+      clearInterval(timeToReset);
+    }, 5000);
   };
 
   return (
@@ -96,6 +119,11 @@ export default function Login({ navigation }) {
           </Text>
         </View>
         <Text style={styles.company}>Receba Bet© 2024</Text>
+        <View style={styles.errorMessageContainer}>
+          {loginError != null && (
+            <Text style={styles.errorMessageText}>{loginError}</Text>
+          )}
+        </View>
       </View>
     </View>
   );

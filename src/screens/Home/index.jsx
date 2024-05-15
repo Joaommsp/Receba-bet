@@ -1,5 +1,7 @@
-import { View, Text, Image } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDoc } from "firebase/firestore";
@@ -12,16 +14,27 @@ const Home = ({ navigation }) => {
   const [userName, setUserName] = useState("");
 
   const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log(user.uid);
-      setUserLogged(true);
-      getCurrentUser(user.uid);
-    } else {
-      setUserLogged(false);
-      navigation.navigate("Login");
+
+  const authenticateUser = () => {
+    try {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log(user.uid);
+          setUserLogged(true);
+          getCurrentUser(user.uid);
+        } else {
+          setUserLogged(false);
+          navigation.navigate("Login");
+        }
+      });
+    } catch (error) {
+      console.log(error);
     }
-  });
+  };
+
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
   const getCurrentUser = async (userID) => {
     const docRef = doc(db, "users", userID);
@@ -37,16 +50,36 @@ const Home = ({ navigation }) => {
 
   getCurrentUser();
 
+  const Tab = createBottomTabNavigator();
+
+  const GiftIcon = () => {
+    return <Ionicons name="gift-outline" size={22} color="#FFFFFF" />;
+  };
+
+  const NotificationIcon = () => {
+    return <Ionicons name="notifications-outline" size={22} color="#FFFFFF" />;
+  };
+
   return (
     userLogged && (
       <View style={styles.homeContainer}>
         <View style={styles.header}>
           <View style={styles.userMenu}>
-            <Text style={styles.userName}>Olá {userName}</Text>
-            <Image
-              style={styles.userImage}
-              source={require("../../../assets/images/default-user-image.png")}
-            />
+            <Text style={styles.userName}>Olá, {userName}</Text>
+            <TouchableOpacity>
+              <Image
+                style={styles.userImage}
+                source={require("../../../assets/images/default-user-image.png")}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.notificationsContainer}>
+            <TouchableOpacity style={styles.notificationButton}>
+              {GiftIcon()}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.notificationButton}>
+              {NotificationIcon()}
+            </TouchableOpacity>
           </View>
         </View>
       </View>

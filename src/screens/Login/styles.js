@@ -100,6 +100,17 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 10,
   },
+
+  errorMessageContainer: {
+    height: 56,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  errorMessageText: {
+    color: "#C40C0C",
+  },
 });
 
 export default styles;

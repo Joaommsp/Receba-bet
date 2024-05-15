@@ -10,11 +10,12 @@ import Intro from "./src/screens/Intro";
 import SignUp from "./src/screens/SignUp";
 import Login from "./src/screens/Login";
 import Home from "./src/screens/Home";
+import Application from "./src/App";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <StatusBar style="inverted" />
+      <StatusBar style="light" />
       <Stack.Navigator
         initialRouteName="Intro"
         screenOptions={{
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Application" component={Application} />
       </Stack.Navigator>
     </NavigationContainer>
   );
