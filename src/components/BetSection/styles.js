@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
   betItem: {
     flexDirection: "row",
-    gap: 56,
+    gap: 36,
   },
 
   gameInfos: {
@@ -29,25 +29,27 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     textAlign: "center",
     marginBottom: 16,
+    fontSize: 12,
   },
 
   competitionImage: {
+    width: 44,
+    height: 44,
+  },
+
+  teamImage: {
     width: 54,
     height: 54,
   },
 
-  teamImage: {
-    width: 64,
-    height: 64,
-  },
-
   teamPrice: {
-    fontSize: 11,
+    fontSize: 8,
     color: "#DDDDDD",
   },
 
   teamName: {
     color: "#FFFFFF",
+    fontSize: 10,
   },
 });
 
