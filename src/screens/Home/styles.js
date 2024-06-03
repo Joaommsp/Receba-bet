@@ -43,19 +43,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 18
+    gap: 18,
   },
 
   notificationButton: {
     backgroundColor: "#171717",
     padding: 8,
-    borderRadius: 100
+    borderRadius: 100,
   },
 
   notificationIcon: {
     width: 156,
-    height: 166
-  }
+    height: 166,
+  },
 });
 
 export default styles;

@@ -7,6 +7,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { firebase, db } from "../../services/firebaseConfig";
 
+import BetSection from "../../components/BetSection";
+
 import styles from "./styles";
 
 const Home = ({ navigation }) => {
@@ -65,7 +67,9 @@ const Home = ({ navigation }) => {
       <View style={styles.homeContainer}>
         <View style={styles.header}>
           <View style={styles.userMenu}>
-            <Text style={styles.userName}>Olá, {userName}</Text>
+            <Text style={styles.userName}>
+              Olá, <Text style={styles.name}>{userName}</Text>
+            </Text>
             <TouchableOpacity>
               <Image
                 style={styles.userImage}
@@ -81,6 +85,10 @@ const Home = ({ navigation }) => {
               {NotificationIcon()}
             </TouchableOpacity>
           </View>
+        </View>
+
+        <View>
+          <BetSection />
         </View>
       </View>
     )

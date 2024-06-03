@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, StatusBar } from "react-native";
+import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -58,7 +58,7 @@ export default function Application() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "#B31312",
+        tabBarActiveTintColor: "#fb3737",
         tabBarInactiveTintColor: "#FFFFFF",
         headerShown: false,
         tabBarStyle: {
