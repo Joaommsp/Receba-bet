@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Home from "../screens/Home";
+import MyGames from "../screens/MyGames";
 
 function HomeScreen() {
   return <Home />;
@@ -19,11 +20,7 @@ function UserScreen() {
 }
 
 function MyGamesScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>GAMES!</Text>
-    </View>
-  );
+  return <MyGames />;
 }
 
 const HomeStack = createNativeStackNavigator();
@@ -72,7 +69,7 @@ export default function Application() {
           alignItems: "center",
           borderRadius: 100,
           backgroundColor: "#171717",
-          borderBlockColor: "#171717"
+          borderBlockColor: "#171717",
         },
         tabBarLabelStyle: { display: "none" },
       })}
