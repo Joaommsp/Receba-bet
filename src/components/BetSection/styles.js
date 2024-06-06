@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   competitionImage: {
     width: 44,
     height: 44,
+    marginBottom: 18,
   },
 
   teamImage: {
@@ -50,6 +51,21 @@ const styles = StyleSheet.create({
   teamName: {
     color: "#FFFFFF",
     fontSize: 10,
+    fontFamily: "",
+  },
+
+  playGameBtn: {
+    backgroundColor: "#B31312",
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    paddingBottom: 8,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  playGameText: {
+    color: "#FFFFFF",
   },
 });
 
