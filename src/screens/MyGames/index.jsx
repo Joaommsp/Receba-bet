@@ -1,22 +1,19 @@
-import { Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { firebase, db } from "../../services/firebaseConfig";
+import { View, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { collection, doc, getDoc } from "firebase/firestore";
+import { firebase, db } from "../../services/firebaseConfig";
 
 import styles from "./styles";
 
 const MyGames = () => {
-  const [userIdAuth, setUserIdAuth] = useState("");
+  const [userLogged, setUserLogged] = useState(false);
+  const [userName, setUserName] = useState("");
 
   const auth = getAuth();
 
-  useEffect(() => {
-    authenticateUser();
-    getGame();
-  }, []);
-
-  const authenticateUser = async () => {
+  const authenticateUser = () => {
     try {
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -33,38 +30,45 @@ const MyGames = () => {
     }
   };
 
+  useEffect(() => {
+    authenticateUser();
+  }, []);
+
   const getCurrentUser = async (userID) => {
-    const docRef = doc(db, "users", userID);
+    const docRef = doc(
+      db,
+      `users/${userID}/minhasApostasAtivas`,
+      minhasApostasAtivas.uid
+    );
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      setUserIdAuth(docSnap.data().id);
+      con.log("CO");
+      console.log(docSnap.data().competicao);
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
-
-    return userIdAuth;
   };
 
-  const getGame = async () => {
-    const id = await getCurrentUser();
-    console.log("IDE AUQI " + id);
+  // const getBets = async () => {
+  //   const docRef = doc(db, "users", userID);
+  //   const docSnap = await getDoc(docRef);
 
-    const docRef = doc(db, "users", id);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      console.log("No such document!");
-    }
-  };
+  //   if (docSnap.exists()) {
+  //     setUserName(docSnap.data().name);
+  //   } else {
+  //     // docSnap.data() will be undefined in this case
+  //     console.log("No such document!");
+  //   }
+  // };
 
   return (
-    <View style={styles.myGamesContainer}>
-      <Text>MyGames</Text>
-    </View>
+    userLogged && (
+      <View style={styles.myGamesContainer}>
+        <Text>{userName}</Text>
+      </View>
+    )
   );
 };
 

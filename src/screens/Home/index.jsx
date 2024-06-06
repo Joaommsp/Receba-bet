@@ -49,9 +49,7 @@ const Home = ({ navigation }) => {
       console.log("No such document!");
     }
   };
-
-  getCurrentUser();
-
+  
   const Tab = createBottomTabNavigator();
 
   const GiftIcon = () => {
