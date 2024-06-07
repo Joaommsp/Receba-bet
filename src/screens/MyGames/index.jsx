@@ -2,8 +2,15 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { firebase, db } from "../../services/firebaseConfig";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import styles from "./styles";
 
@@ -66,6 +73,24 @@ const MyGames = () => {
     }
   };
 
+  const deleteBet = async (betID) => {
+    try {
+      const betRef = doc(
+        db,
+        "users",
+        auth.currentUser.uid,
+        "minhas_apostas_ativas",
+        betID
+      );
+      await deleteDoc(betRef);
+      console.log("Bet deleted successfully:", betID);
+
+      setUserBets(userBets.filter((bet) => bet.id !== betID));
+    } catch (error) {
+      console.log("Error deleting bet:", error);
+    }
+  };
+
   // const getBets = async () => {
   //   const docRef = doc(db, "users", userID);
   //   const docSnap = await getDoc(docRef);
@@ -77,6 +102,10 @@ const MyGames = () => {
   //     console.log("No such document!");
   //   }
   // };
+
+  const DeleteIcon = () => {
+    return <Ionicons name="close-circle-outline" size={32} color="#FFFFFF" />;
+  };
 
   return (
     userLogged && (
@@ -99,23 +128,11 @@ const MyGames = () => {
                   style={styles.competitionImage}
                   source={{ uri: bet.fotoCompeticao }}
                 />
-                <TouchableOpacity
-                  style={styles.playGameBtn}
-                  onPress={() =>
-                    addBet(
-                      bet.competicao,
-                      bet.cotacaoTime1,
-                      bet.cotacaoTime2,
-                      bet.fotoCompeticao,
-                      bet.fotoTime1,
-                      bet.fotoTime2,
-                      bet.time1,
-                      bet.time2
-                    )
-                  }
-                >
-                  <Text style={styles.playGameText}>Jogar</Text>
-                </TouchableOpacity>
+                {bet.id && (
+                  <TouchableOpacity onPress={() => deleteBet(bet.id)}>
+                    <DeleteIcon />
+                  </TouchableOpacity>
+                )}
               </View>
               <View style={styles.teamInfos}>
                 <Image

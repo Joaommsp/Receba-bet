@@ -35,6 +35,7 @@ export default function BetSection() {
   const auth = getAuth();
 
   const addBet = async (
+    id,
     competition,
     team1Price,
     team2Price,
@@ -52,6 +53,7 @@ export default function BetSection() {
         "minhas_apostas_ativas"
       );
       const newBetRef = await addDoc(minhasApostasAtivasRef, {
+        id: id,
         competicao: competition,
         cotacaoTime1: team1Price,
         cotacaoTime2: team2Price,
@@ -86,6 +88,7 @@ export default function BetSection() {
               style={styles.playGameBtn}
               onPress={() =>
                 addBet(
+                  bet.id,
                   bet.competicao,
                   bet.cotacaoTime1,
                   bet.cotacaoTime2,
