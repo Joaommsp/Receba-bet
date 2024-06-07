@@ -1,4 +1,4 @@
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import React, { useState, useEffect } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { firebase, db } from "../../services/firebaseConfig";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -18,6 +19,9 @@ const MyGames = () => {
   const [userLogged, setUserLogged] = useState(false);
   const [userName, setUserName] = useState("");
   const [userBets, setUserBets] = useState([]);
+  const [editBetID, setEditBetID] = useState("");
+  const [editBetScoreTeam1, setEditBetScoreTeam1] = useState(0);
+  const [editBetScoreTeam2, setEditBetScoreTeam2] = useState(0);
 
   const auth = getAuth();
 
@@ -61,13 +65,7 @@ const MyGames = () => {
         "minhas_apostas_ativas"
       );
       const snapshot = await getDocs(minhasApostasAtivasRef);
-
-      const betsArray = [];
-      snapshot.forEach((doc) => {
-        betsArray.push(doc.data());
-      });
-
-      setUserBets(betsArray);
+      setUserBets(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     } catch (error) {
       console.log("Error getting user bets:", error);
     }
@@ -91,6 +89,18 @@ const MyGames = () => {
     }
   };
 
+  const handleEditBet = (betID, scoreTeam1, scoreTeam2) => {
+    setEditBetID(betID);
+    setEditBetScoreTeam1(scoreTeam1);
+    setEditBetScoreTeam2(scoreTeam2);
+  };
+
+  const cancelEdit = () => {
+    setEditBetID("");
+    setEditBetScoreTeam1(0);
+    setEditBetScoreTeam2(0);
+  };
+
   // const getBets = async () => {
   //   const docRef = doc(db, "users", userID);
   //   const docSnap = await getDoc(docRef);
@@ -104,7 +114,7 @@ const MyGames = () => {
   // };
 
   const DeleteIcon = () => {
-    return <Ionicons name="close-circle-outline" size={32} color="#FFFFFF" />;
+    return <Ionicons name="close-circle-outline" size={32} color="#DA0037" />;
   };
 
   return (
@@ -112,8 +122,8 @@ const MyGames = () => {
       <View style={styles.myGamesContainer}>
         <Text>{userName}AQUI</Text>
         <View style={styles.betsContainer}>
-          {userBets.map((bet) => (
-            <View key={bet.id} style={styles.betItem}>
+          {userBets.map((bet, index) => (
+            <View key={index} style={styles.betItem}>
               <View style={styles.teamInfos}>
                 <Image
                   style={styles.teamImage}
@@ -133,6 +143,57 @@ const MyGames = () => {
                     <DeleteIcon />
                   </TouchableOpacity>
                 )}
+                <View style={styles.scoreContainer}>
+                  <TextInput
+                    style={styles.scoreInput}
+                    keyboardType="numeric"
+                    defaultValue={parseInt(bet.placarTime1).toString()}
+                    maxLength={2}
+                    placeholder="0"
+                    placeholderTextColor={"#989898"}
+                    onChangeText={(text) => {
+                      let newText = "";
+                      let numbers = "0123456789";
+
+                      for (var i = 0; i < text.length; i++) {
+                        if (numbers.indexOf(text[i]) > -1) {
+                          newText = newText + text[i];
+                        } else {
+                          // your call back function
+                          alert("please enter numbers only");
+                          setEditBetScoreTeam1(0);
+                        }
+                      }
+                      setEditBetScoreTeam1(text);
+                    }}
+                  />
+                  <TextInput
+                    style={styles.scoreInput}
+                    keyboardType="numeric"
+                    defaultValue={parseInt(bet.placarTime2).toString()}
+                    placeholder="0"
+                    placeholderTextColor={"#989898"}
+                    maxLength={2}
+                    onChangeText={(text) => {
+                      let newText = "";
+                      let numbers = "0123456789";
+
+                      for (var i = 0; i < text.length; i++) {
+                        if (numbers.indexOf(text[i]) > -1) {
+                          newText = newText + text[i];
+                        } else {
+                          // your call back function
+                          alert("please enter numbers only");
+                          setEditBetScoreTeam1(0);
+                        }
+                      }
+                      setEditBetScoreTeam1(text);
+                    }}
+                  />
+                </View>
+                <TouchableOpacity style={styles.finishBetBtn}>
+                  <Text style={styles.finishText}>Finalizar</Text>
+                </TouchableOpacity>
               </View>
               <View style={styles.teamInfos}>
                 <Image

@@ -53,7 +53,6 @@ export default function BetSection() {
         "minhas_apostas_ativas"
       );
       const newBetRef = await addDoc(minhasApostasAtivasRef, {
-        id: id,
         competicao: competition,
         cotacaoTime1: team1Price,
         cotacaoTime2: team2Price,
@@ -62,6 +61,8 @@ export default function BetSection() {
         fotoTime2: imageTeam2,
         time1: nameTeam1,
         time2: nameTeam2,
+        placarTime1: 0,
+        placarTime2: 0,
       });
       console.log("Bet added successfully:", newBetRef.id);
     } catch (error) {

@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   teamName: {
     color: "#FFFFFF",
     fontSize: 10,
-    fontFamily: "",
   },
 
   playGameBtn: {
