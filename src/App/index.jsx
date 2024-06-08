@@ -32,8 +32,8 @@ function HomeStackScreen() {
         headerShown: false,
       }}
     >
-      <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="Settings" component={UserScreen} />
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+      {/* <HomeStack.Screen name="UserSettings" component={UserScreen} /> */}
     </HomeStack.Navigator>
   );
 }

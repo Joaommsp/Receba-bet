@@ -13,7 +13,7 @@ import {
 
 import styles from "./styles";
 
-export default function BetSection() {
+export default function BetLostSection() {
   const [bets, setBets] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,6 @@ export default function BetSection() {
   const auth = getAuth();
 
   const addBet = async (
-    id,
     competition,
     team1Price,
     team2Price,
@@ -89,7 +88,6 @@ export default function BetSection() {
               style={styles.playGameBtn}
               onPress={() =>
                 addBet(
-                  bet.id,
                   bet.competicao,
                   bet.cotacaoTime1,
                   bet.cotacaoTime2,
