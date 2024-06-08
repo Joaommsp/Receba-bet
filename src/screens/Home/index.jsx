@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -43,13 +43,13 @@ const Home = ({ navigation }) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      setUserName(docSnap.data().name);
+      const fullName = docSnap.data().name;
+      const firstName = fullName.split(" ")[0]; // Pega apenas o primeiro nome
+      setUserName(firstName);
     } else {
-      // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
   };
-  
   const Tab = createBottomTabNavigator();
 
   const GiftIcon = () => {
@@ -60,35 +60,128 @@ const Home = ({ navigation }) => {
     return <Ionicons name="notifications-outline" size={22} color="#FFFFFF" />;
   };
 
+  const ArrowDownIcon = () => {
+    return <Ionicons name="chevron-down-outline" size={22} color="#FFFFFF" />;
+  };
+
+  const FootballIcon = () => {
+    return <Ionicons name="football-outline" size={30} color="#B31312" />;
+  };
+
+  const BasketIcon = () => {
+    return <Ionicons name="basketball" size={36} color="#797979" />;
+  };
+
+  const RaceIcon = () => {
+    return <Ionicons name="car-sport-outline" size={36} color="#797979" />;
+  };
+
+  const BaseballIcon = () => {
+    return <Ionicons name="baseball-outline" size={36} color="#797979" />;
+  };
+
+  const PlayStationIcon = () => {
+    return <Ionicons name="logo-playstation" size={36} color="#797979" />;
+  };
+
+  const StatsIcon = () => {
+    return <Ionicons name="stats-chart" size={28} color="#797979" />;
+  };
+
+  const GameIcon = () => {
+    return <Ionicons name="game-controller" size={20} color="#FFFFFF" />;
+  };
+
+  const MenuIcon = () => {
+    return (
+      <Ionicons name="ellipsis-vertical-circle" size={20} color="#FFFFFF" />
+    );
+  };
+
+  const StarIcon = () => {
+    return <Ionicons name="star" size={18} color="#f3e40e" />;
+  };
+
   return (
     userLogged && (
-      <View style={styles.homeContainer}>
-        <View style={styles.header}>
-          <View style={styles.userMenu}>
-            <Text style={styles.userName}>
-              Olá, <Text style={styles.name}>{userName}</Text>
-            </Text>
-            <TouchableOpacity>
-              <Image
-                style={styles.userImage}
-                source={require("../../../assets/images/default-user-image.png")}
-              />
-            </TouchableOpacity>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.homeContainer}>
+          <View style={styles.header}>
+            <View style={styles.userMenu}>
+              <Text style={styles.userName}>
+                Olá, <Text style={styles.name}>{userName}</Text>
+              </Text>
+              <TouchableOpacity>
+                <Image
+                  style={styles.userImage}
+                  source={require("../../../assets/images/default-user-image.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.notificationsContainer}>
+              <TouchableOpacity style={styles.notificationButton}>
+                {GiftIcon()}
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.notificationButton}>
+                {NotificationIcon()}
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.notificationsContainer}>
-            <TouchableOpacity style={styles.notificationButton}>
-              {GiftIcon()}
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.notificationButton}>
-              {NotificationIcon()}
-            </TouchableOpacity>
-          </View>
-        </View>
+          <View style={styles.mainContentContainer}>
+            <Image
+              style={styles.recebaBetLogo}
+              source={require("../../../assets/images/receba-bet-logo-extended.png")}
+            />
 
-        <View>
-          <BetSection />
+            <View style={styles.trendBannerContainer}>
+              <Image
+                style={styles.trendBetBanner}
+                source={require("../../../assets/images/elclassicobanner.png")}
+              />
+              <View style={styles.playTrendGameContainer}>
+                <TouchableOpacity style={styles.playTrendGameBtn}>
+                  <StarIcon />
+                </TouchableOpacity>
+                <Text style={styles.trendLink}>Trending Game</Text>
+                <TouchableOpacity style={styles.playTrendGameBtn}>
+                  <GameIcon />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.playTrendGameBtn}>
+                  <MenuIcon />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.sportsContainer}>
+              <TouchableOpacity style={styles.selectedSport}>
+                <FootballIcon />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <BasketIcon />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <RaceIcon />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <BaseballIcon />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <PlayStationIcon />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <StatsIcon />
+              </TouchableOpacity>
+            </View>
+            <BetSection />
+          </View>
+          <View style={styles.footer}>
+            <Image
+              style={styles.recebaBetLogo}
+              source={require("../../../assets/images/receba-bet-logo-extended.png")}
+            />
+            <Text style={styles.company}>Receba Bet© 2024</Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     )
   );
 };

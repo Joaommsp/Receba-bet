@@ -3,9 +3,22 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   betSectionContainer: {
     width: "100%",
-    height: "100%",
     alignItems: "center",
-    gap: 32,
+    gap: 26,
+    padding: 20,
+    backgroundColor: "#0C0C0C",
+    paddingTop: 36,
+    paddingBottom: 36,
+    borderRadius: 20,
+  },
+
+  fakeScrollBar: {
+    width: 86,
+    height: 3,
+    backgroundColor: "#FFFFFF90",
+    position: "absolute",
+    top: 10,
+    borderRadius: 100,
   },
 
   teamInfos: {
@@ -16,7 +29,25 @@ const styles = StyleSheet.create({
 
   betItem: {
     flexDirection: "row",
-    gap: 36,
+    gap: 56,
+    borderBottomWidth: 1,
+    borderColor: "#FFFFFF20",
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+  },
+
+  liveIndicator: {
+    position: "absolute",
+    top: -5,
+    right: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5
+  },
+
+  liveIndicatorText: {
+    color: "#16FF00",
+    fontSize: 10,
   },
 
   gameInfos: {

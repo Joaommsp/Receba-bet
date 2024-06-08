@@ -10,6 +10,7 @@ import {
   query,
   addDoc,
 } from "firebase/firestore";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import styles from "./styles";
 
@@ -69,10 +70,19 @@ export default function BetLostSection() {
     }
   };
 
+  const BaseballIcon = () => {
+    return <Ionicons name="radio-button-on" size={10} color="#16FF00" />;
+  };
+
   return (
     <View style={styles.betSectionContainer}>
+      <View style={styles.fakeScrollBar}></View>
       {bets.map((bet) => (
         <View key={bet.id} style={styles.betItem}>
+          <View style={styles.liveIndicator}>
+            <Text style={styles.liveIndicatorText}>Live</Text>
+            <BaseballIcon />
+          </View>
           <View style={styles.teamInfos}>
             <Image style={styles.teamImage} source={{ uri: bet.fotoTime1 }} />
             <Text style={styles.teamPrice}>{bet.cotacaoTime1}</Text>
