@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
   betItem: {
     flexDirection: "row",
-    gap: 56,
+    gap: 26,
     borderBottomWidth: 1,
     borderColor: "#FFFFFF20",
     paddingBottom: 20,

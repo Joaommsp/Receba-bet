@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
   recebaBetLogo: {
     width: 200,
     height: 58,
-    marginBottom: 24,
+    marginTop: 20,
+    marginBottom: 20,
   },
 
   trendHeader: {
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     display: "flex",
     alignItems: "center",
+    fontSize: 11,
   },
 
   trendBannerContainer: {
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
     borderRadius: 100,
-    gap: 5
+    gap: 5,
   },
 
   playTrendGameBtn: {},

@@ -128,11 +128,6 @@ const Home = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.mainContentContainer}>
-            <Image
-              style={styles.recebaBetLogo}
-              source={require("../../../assets/images/receba-bet-logo-extended.png")}
-            />
-
             <View style={styles.trendBannerContainer}>
               <Image
                 style={styles.trendBetBanner}
@@ -151,6 +146,10 @@ const Home = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
+            <Image
+              style={styles.recebaBetLogo}
+              source={require("../../../assets/images/receba-bet-logo-extended.png")}
+            />
             <View style={styles.sportsContainer}>
               <TouchableOpacity style={styles.selectedSport}>
                 <FootballIcon />

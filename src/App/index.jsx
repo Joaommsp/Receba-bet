@@ -6,17 +6,14 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Home from "../screens/Home";
 import MyGames from "../screens/MyGames";
+import User from "../screens/User";
 
 function HomeScreen() {
   return <Home />;
 }
 
 function UserScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>USER!</Text>
-    </View>
-  );
+  return <User />;
 }
 
 function MyGamesScreen() {

@@ -36,6 +36,7 @@ const MyGames = () => {
   const [editBetScoreTeam2, setEditBetScoreTeam2] = useState(0);
   const [waitConfirmBet, setWaitConfirmBet] = useState(false);
   const [confirmingBetID, setConfirmingBetID] = useState(null);
+  const [reload, setReload] = useState(true);
 
   useEffect(() => {
     authenticateUser();
@@ -178,7 +179,7 @@ const MyGames = () => {
       deleteBet(betId);
       setConfirmingBetID(null);
       resetEditScore();
-      getLosts();
+      reloadGames();
     }
   };
 
@@ -215,8 +216,13 @@ const MyGames = () => {
     }
   };
 
-  const getLosts = () => {
-    return <BetLostSection />;
+  const reloadGames = () => {
+    setReload(false);
+
+    const timeToRestart = setInterval(() => {
+      setReload(true);
+      clearInterval(timeToRestart);
+    }, 2000);
   };
 
   return (
@@ -226,147 +232,149 @@ const MyGames = () => {
           <Text>{userName}AQUI</Text>
           <View style={styles.betsContainer}>
             {userBets.map((bet, index) => (
-              <View key={index} style={styles.betItem}>
-                {confirmingBetID === bet.id && (
-                  <View style={styles.centeredView}>
-                    <View style={styles.popupConfirmBet}>
-                      <Text style={styles.betConfirmText}>
-                        Deseja confirmar sua aposta ?
-                      </Text>
-                      <View style={styles.betGameStats}>
-                        <View style={styles.teamStats}>
-                          <Image
-                            style={styles.betTeamImage}
-                            source={{ uri: bet.fotoTime1 }}
-                          />
-                          <Text style={styles.betTeamScore}>
-                            {editBetScoreTeam1}
-                          </Text>
+              <TouchableOpacity>
+                <View key={index} style={styles.betItem}>
+                  {confirmingBetID === bet.id && (
+                    <View style={styles.centeredView}>
+                      <View style={styles.popupConfirmBet}>
+                        <Text style={styles.betConfirmText}>
+                          Deseja confirmar sua aposta ?
+                        </Text>
+                        <View style={styles.betGameStats}>
+                          <View style={styles.teamStats}>
+                            <Image
+                              style={styles.betTeamImage}
+                              source={{ uri: bet.fotoTime1 }}
+                            />
+                            <Text style={styles.betTeamScore}>
+                              {editBetScoreTeam1}
+                            </Text>
+                          </View>
+                          <View style={styles.teamStats}>
+                            <Image
+                              style={styles.betTeamImage}
+                              source={{ uri: bet.fotoTime2 }}
+                            />
+                            <Text style={styles.betTeamScore}>
+                              {editBetScoreTeam2}
+                            </Text>
+                          </View>
                         </View>
-                        <View style={styles.teamStats}>
-                          <Image
-                            style={styles.betTeamImage}
-                            source={{ uri: bet.fotoTime2 }}
-                          />
-                          <Text style={styles.betTeamScore}>
-                            {editBetScoreTeam2}
-                          </Text>
+                        <View style={styles.actionButtonsContainer}>
+                          <TouchableOpacity
+                            onPress={() =>
+                              betGame(
+                                bet.id,
+                                editBetScoreTeam1,
+                                editBetScoreTeam2,
+                                bet.competicao,
+                                bet.fotoCompeticao,
+                                bet.fotoTime1,
+                                bet.fotoTime2
+                              )
+                            }
+                          >
+                            <ConfirmIcon />
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={() => setConfirmingBetID(null)}
+                          >
+                            <DeleteIcon />
+                          </TouchableOpacity>
                         </View>
-                      </View>
-                      <View style={styles.actionButtonsContainer}>
-                        <TouchableOpacity
-                          onPress={() =>
-                            betGame(
-                              bet.id,
-                              editBetScoreTeam1,
-                              editBetScoreTeam2,
-                              bet.competicao,
-                              bet.fotoCompeticao,
-                              bet.fotoTime1,
-                              bet.fotoTime2
-                            )
-                          }
-                        >
-                          <ConfirmIcon />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          onPress={() => setConfirmingBetID(null)}
-                        >
-                          <DeleteIcon />
-                        </TouchableOpacity>
                       </View>
                     </View>
-                  </View>
-                )}
-                <View style={styles.teamInfos}>
-                  <Image
-                    style={styles.teamImage}
-                    source={{ uri: bet.fotoTime1 }}
-                  />
-                  <Text style={styles.teamPrice}>{bet.cotacaoTime1}</Text>
-                  <Text style={styles.teamName}>{bet.time1}</Text>
-                </View>
-                <View style={styles.gameInfos}>
-                  <Image
-                    style={styles.competitionImage}
-                    source={{ uri: bet.fotoCompeticao }}
-                  />
-                  {bet.id && (
-                    <TouchableOpacity onPress={() => deleteBet(bet.id)}>
-                      <DeleteIcon />
-                    </TouchableOpacity>
                   )}
-                  <View style={styles.scoreContainer}>
-                    <TextInput
-                      style={styles.scoreInput}
-                      keyboardType="numeric"
-                      defaultValue={parseInt(bet.placarTime1).toString()}
-                      maxLength={2}
-                      placeholder="0"
-                      placeholderTextColor={"#989898"}
-                      onChangeText={(text) => {
-                        let newText = "";
-                        let numbers = "0123456789";
-                        for (var i = 0; i < text.length; i++) {
-                          if (numbers.indexOf(text[i]) > -1) {
-                            newText = newText + text[i];
-                            setEditBetScoreTeam1(newText);
-                          } else {
-                            // your call back function
-                            alert("please enter numbers only");
-                            setEditBetScoreTeam1(0);
-                          }
-                        }
-                        setEditBetScoreTeam1(text);
-                      }}
+                  <View style={styles.teamInfos}>
+                    <Image
+                      style={styles.teamImage}
+                      source={{ uri: bet.fotoTime1 }}
                     />
-                    <TextInput
-                      style={styles.scoreInput}
-                      keyboardType="numeric"
-                      defaultValue={parseInt(bet.placarTime2).toString()}
-                      placeholder="0"
-                      placeholderTextColor={"#989898"}
-                      maxLength={2}
-                      onChangeText={(text) => {
-                        let newText = "";
-                        let numbers = "0123456789";
-                        for (var i = 0; i < text.length; i++) {
-                          if (numbers.indexOf(text[i]) > -1) {
-                            newText = newText + text[i];
-                            setEditBetScoreTeam2(newText);
-                          } else {
-                            // your call back function
-                            alert("please enter numbers only");
-                            setEditBetScoreTeam2(0);
-                          }
-                        }
-                        setEditBetScoreTeam2(text);
-                      }}
-                    />
+                    <Text style={styles.teamPrice}>{bet.cotacaoTime1}</Text>
+                    <Text style={styles.teamName}>{bet.time1}</Text>
                   </View>
-                  <TouchableOpacity
-                    style={styles.finishBetBtn}
-                    onPress={() => setConfirmingBetID(bet.id)}
-                  >
-                    <Text style={styles.finishText}>Finalizar</Text>
-                  </TouchableOpacity>
+                  <View style={styles.gameInfos}>
+                    <Image
+                      style={styles.competitionImage}
+                      source={{ uri: bet.fotoCompeticao }}
+                    />
+                    {bet.id && (
+                      <TouchableOpacity onPress={() => deleteBet(bet.id)}>
+                        <DeleteIcon />
+                      </TouchableOpacity>
+                    )}
+                    <View style={styles.scoreContainer}>
+                      <TextInput
+                        style={styles.scoreInput}
+                        keyboardType="numeric"
+                        defaultValue={parseInt(bet.placarTime1).toString()}
+                        maxLength={2}
+                        placeholder="0"
+                        placeholderTextColor={"#989898"}
+                        onChangeText={(text) => {
+                          let newText = "";
+                          let numbers = "0123456789";
+                          for (var i = 0; i < text.length; i++) {
+                            if (numbers.indexOf(text[i]) > -1) {
+                              newText = newText + text[i];
+                              setEditBetScoreTeam1(newText);
+                            } else {
+                              // your call back function
+                              alert("please enter numbers only");
+                              setEditBetScoreTeam1(0);
+                            }
+                          }
+                          setEditBetScoreTeam1(text);
+                        }}
+                      />
+                      <TextInput
+                        style={styles.scoreInput}
+                        keyboardType="numeric"
+                        defaultValue={parseInt(bet.placarTime2).toString()}
+                        placeholder="0"
+                        placeholderTextColor={"#989898"}
+                        maxLength={2}
+                        onChangeText={(text) => {
+                          let newText = "";
+                          let numbers = "0123456789";
+                          for (var i = 0; i < text.length; i++) {
+                            if (numbers.indexOf(text[i]) > -1) {
+                              newText = newText + text[i];
+                              setEditBetScoreTeam2(newText);
+                            } else {
+                              // your call back function
+                              alert("please enter numbers only");
+                              setEditBetScoreTeam2(0);
+                            }
+                          }
+                          setEditBetScoreTeam2(text);
+                        }}
+                      />
+                    </View>
+                    <TouchableOpacity
+                      style={styles.finishBetBtn}
+                      onPress={() => setConfirmingBetID(bet.id)}
+                    >
+                      <Text style={styles.finishText}>Finalizar</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.teamInfos}>
+                    <Image
+                      style={styles.teamImage}
+                      source={{ uri: bet.fotoTime2 }}
+                    />
+                    <Text style={styles.teamPrice}>{bet.cotacaoTime2}</Text>
+                    <Text style={styles.teamName}>{bet.time2}</Text>
+                  </View>
                 </View>
-                <View style={styles.teamInfos}>
-                  <Image
-                    style={styles.teamImage}
-                    source={{ uri: bet.fotoTime2 }}
-                  />
-                  <Text style={styles.teamPrice}>{bet.cotacaoTime2}</Text>
-                  <Text style={styles.teamName}>{bet.time2}</Text>
-                </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
           <Text style={styles.performanceText}>Performance</Text>
           <View style={styles.resultBetsContainer}>
-            <BetWinSection />
+            {reload && <BetWinSection />}
           </View>
-          <View style={styles.resultBetsContainer}>{getLosts()}</View>
+          {reload && <BetLostSection />}
         </View>
       </ScrollView>
     )

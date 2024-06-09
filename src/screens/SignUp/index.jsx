@@ -54,7 +54,7 @@ export default function SignUp({ navigation }) {
         });
 
         if (user) {
-          navigation.navigate("Home");
+          navigation.navigate("Application");
         }
       })
       .catch((error) => {
