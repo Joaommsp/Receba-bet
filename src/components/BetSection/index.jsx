@@ -11,6 +11,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 
@@ -20,6 +21,8 @@ export default function BetLostSection() {
   useEffect(() => {
     getBets();
   }, []);
+
+  const navigation = useNavigation();
 
   const getBets = async () => {
     const q = query(collection(db, "apostas"));
@@ -65,6 +68,7 @@ export default function BetLostSection() {
         placarTime2: 0,
       });
       console.log("Bet added successfully:", newBetRef.id);
+      navigation.navigate("MyGames");
     } catch (error) {
       console.log("Error adding bet:", error);
     }

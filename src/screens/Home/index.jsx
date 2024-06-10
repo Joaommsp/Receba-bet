@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDoc } from "firebase/firestore";
@@ -11,11 +12,12 @@ import BetSection from "../../components/BetSection";
 
 import styles from "./styles";
 
-const Home = ({ navigation }) => {
+const Home = () => {
   const [userLogged, setUserLogged] = useState(false);
   const [userName, setUserName] = useState("");
 
   const auth = getAuth();
+  const navigation = useNavigation();
 
   const authenticateUser = () => {
     try {

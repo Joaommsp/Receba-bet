@@ -70,43 +70,37 @@ export default function BetWinSection() {
 
   return (
     <View style={styles.betSectionContainer}>
-      {userBets.length > 0 ? (
-        userBets.map((bet) => (
-          <View key={bet.id} style={styles.betItem}>
-            <View style={styles.teamInfos}>
-              <Image style={styles.teamImage} source={{ uri: bet.fotoTime1 }} />
-              <Text style={styles.teamName}>{bet.time1}</Text>
-            </View>
-            <View style={styles.gameInfos}>
-              {/* <Image
+      {userBets.map((bet) => (
+        <View key={bet.id} style={styles.betItem}>
+          <View style={styles.teamInfos}>
+            <Image style={styles.teamImage} source={{ uri: bet.fotoTime1 }} />
+            <Text style={styles.teamName}>{bet.time1}</Text>
+          </View>
+          <View style={styles.gameInfos}>
+            {/* <Image
               style={styles.competitionImage}
               source={{ uri: bet.fotoCompeticao }}
             /> */}
-              <View style={styles.gameResultsContainer}>
-                <TrophyIcon />
-                <View style={styles.resultScore}>
-                  <Text style={styles.score}>{bet.placarTime1}</Text>
-                  <Text style={styles.score}>{bet.placarTime2}</Text>
-                </View>
-              </View>
-              <View style={styles.gameGuessContainer}>
-                <View style={styles.guessScore}>
-                  <Text style={styles.guess}>{bet.palpiteTime1}</Text>
-                  <Text style={styles.guess}>{bet.palpiteTime2}</Text>
-                </View>
+            <View style={styles.gameResultsContainer}>
+              <TrophyIcon />
+              <View style={styles.resultScore}>
+                <Text style={styles.score}>{bet.placarTime1}</Text>
+                <Text style={styles.score}>{bet.placarTime2}</Text>
               </View>
             </View>
-            <View style={styles.teamInfos}>
-              <Image style={styles.teamImage} source={{ uri: bet.fotoTime2 }} />
-              <Text style={styles.teamName}>{bet.time2}</Text>
+            <View style={styles.gameGuessContainer}>
+              <View style={styles.guessScore}>
+                <Text style={styles.guess}>{bet.palpiteTime1}</Text>
+                <Text style={styles.guess}>{bet.palpiteTime2}</Text>
+              </View>
             </View>
           </View>
-        ))
-      ) : (
-        <View>
-          <Text>FRACASSADO</Text>
+          <View style={styles.teamInfos}>
+            <Image style={styles.teamImage} source={{ uri: bet.fotoTime2 }} />
+            <Text style={styles.teamName}>{bet.time2}</Text>
+          </View>
         </View>
-      )}
+      ))}
     </View>
   );
 }

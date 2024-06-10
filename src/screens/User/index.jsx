@@ -13,10 +13,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { firebase, db } from "../../services/firebaseConfig";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 
-const User = ({ navigation }) => {
+const User = () => {
   const [userLogged, setUserLogged] = useState(false);
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
@@ -24,6 +25,8 @@ const User = ({ navigation }) => {
   const [openEditInput, setOpenEditInput] = useState(false);
   const [newName, setNewName] = useState("");
   const [errorEditMessage, setErrorEditMessage] = useState(null);
+
+  const navigation = useNavigation();
 
   const auth = getAuth();
 
@@ -88,7 +91,7 @@ const User = ({ navigation }) => {
     try {
       signOut(auth).then(() => {
         console.log("SAIU");
-        navigation.navigate("Application");
+        navigation.navigate("Login");
       });
     } catch (error) {
       console.log(error);

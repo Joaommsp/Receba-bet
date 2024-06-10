@@ -163,9 +163,9 @@ const MyGames = () => {
     console.log(typeof guessScore2);
 
     if (resultScore1 == guessScore1 && resultScore2 == guessScore2) {
-      alert("GANHOU CU");
+      alert("GANHOU!");
     } else {
-      alert("perdeuKKK");
+      alert("PERDEU!");
       await addLoseBet(
         competitionName,
         competitionImage,
@@ -229,10 +229,10 @@ const MyGames = () => {
     userLogged && (
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.myGamesContainer}>
-          <Text>{userName}AQUI</Text>
+          <Text style={styles.myBetsText}>Minhas Apostas</Text>
           <View style={styles.betsContainer}>
             {userBets.map((bet, index) => (
-              <TouchableOpacity>
+              <TouchableOpacity style={styles.betItemTouchable}>
                 <View key={index} style={styles.betItem}>
                   {confirmingBetID === bet.id && (
                     <View style={styles.centeredView}>
@@ -374,7 +374,16 @@ const MyGames = () => {
           <View style={styles.resultBetsContainer}>
             {reload && <BetWinSection />}
           </View>
-          {reload && <BetLostSection />}
+          <View style={styles.resultBetsContainer}>
+            {reload && <BetLostSection />}
+          </View>
+          <View style={styles.footer}>
+            <Image
+              style={styles.recebaBetLogo}
+              source={require("../../../assets/images/receba-bet-logo-extended.png")}
+            />
+            <Text style={styles.company}>Receba Bet© 2024</Text>
+          </View>
         </View>
       </ScrollView>
     )

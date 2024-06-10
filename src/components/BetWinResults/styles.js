@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     gap: 32,
+    backgroundColor: "#0C0C0C",
+    borderRadius: 20,
+    paddingVertical: 20
   },
 
   teamInfos: {

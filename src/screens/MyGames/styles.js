@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0C0C0C",
+    backgroundColor: "#000000",
     position: "relative",
     overflow: "scroll",
     paddingTop: 56,
@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
 
   betsContainer: {
     marginBottom: 24,
+    width: "100%",
+    alignItems: "center",
+  },
+
+  myBetsText: {
+    color: "#FFFFFF",
+    marginBottom: 10,
   },
 
   teamInfos: {
@@ -28,10 +35,22 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 
+  betItemTouchable: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   betItem: {
+    width: "100%",
     flexDirection: "row",
+    justifyContent: "center",
     gap: 36,
     padding: 24,
+    backgroundColor: "#0C0C0C",
+    borderRadius: 20,
   },
 
   gameInfos: {
@@ -184,8 +203,9 @@ const styles = StyleSheet.create({
   },
 
   resultBetsContainer: {
+    width: "100%",
     alignItems: "center",
-    marginBottom: 36,
+    marginBottom: 20,
   },
 
   performanceText: {
@@ -193,7 +213,25 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     fontSize: 20,
-    color: "#FFFFFF"
+    color: "#FFFFFF",
+  },
+
+  recebaBetLogo: {
+    width: 200,
+    height: 58,
+    marginTop: 20,
+    marginBottom: 20,
+  },
+
+  footer: {
+    width: "100%",
+    alignItems: "center",
+    paddingVertical: 24,
+  },
+
+  company: {
+    fontSize: 9,
+    color: "#FFFFFF",
   },
 });
 
