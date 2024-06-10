@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { firebase, db } from "../../services/firebaseConfig";
 
@@ -73,6 +73,25 @@ const User = ({ navigation }) => {
       authenticateUser();
     } else {
       setErrorEditMessage("Insira um novo nome");
+      resetErrorMessage();
+    }
+  };
+
+  const resetErrorMessage = () => {
+    const timetToResetMessage = setInterval(() => {
+      setErrorEditMessage(null);
+      clearInterval(timetToResetMessage);
+    }, 5000);
+  };
+
+  const logOut = () => {
+    try {
+      signOut(auth).then(() => {
+        console.log("SAIU");
+        navigation.navigate("Application");
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -85,11 +104,11 @@ const User = ({ navigation }) => {
   };
 
   const UserIcon = () => {
-    return <Ionicons name="person-circle" size={36} color="#C40C0C" />;
+    return <Ionicons name="person-circle" size={26} color="#C40C0C" />;
   };
 
   const EmailIcon = () => {
-    return <Ionicons name="mail" size={36} color="#C40C0C" />;
+    return <Ionicons name="mail" size={26} color="#C40C0C" />;
   };
 
   const EditIcon = () => {
@@ -104,6 +123,10 @@ const User = ({ navigation }) => {
     return (
       <Ionicons name="checkmark-circle-outline" size={26} color="#16FF00" />
     );
+  };
+
+  const AlertIcon = () => {
+    return <Ionicons name="alert-circle-outline" size={26} color="#C40C0C" />;
   };
 
   return (
@@ -163,11 +186,23 @@ const User = ({ navigation }) => {
               <EmailIcon />
               <Text style={styles.userInfoText}>{userEmail}</Text>
             </View>
-            {errorEditMessage != null && (
-              <View>
-                <Text style={styles.errorMessage}>{errorEditMessage}</Text>
-              </View>
-            )}
+
+            <View style={styles.errorMessageContainer}>
+              {errorEditMessage != null && (
+                <>
+                  <Text style={styles.errorMessage}>{errorEditMessage}</Text>
+                  <AlertIcon />
+                </>
+              )}
+            </View>
+            <View style={styles.logoutBtnContainer}>
+              <TouchableOpacity
+                style={styles.logoutBtn}
+                onPress={() => logOut()}
+              >
+                <Text style={styles.logoutBtnText}>Sair</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.footer}>
             <Image

@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
   },
 
   userProfilePic: {
-    width: 136,
-    height: 136,
+    width: 106,
+    height: 106,
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "#FF0000",
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 
   userInfosContainer: {
     alignItems: "flex-start",
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     gap: 18,
   },
 
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    gap: 28,
+    gap: 10,
     backgroundColor: "#0C0C0C",
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 
   userInfoText: {
     color: "#FFFFFF",
-    fontSize: 18,
+    fontSize: 14,
   },
 
   editBtn: {
@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     paddingVertical: 24,
+    position: "absolute",
+    bottom: 104,
   },
 
   company: {
@@ -133,7 +135,30 @@ const styles = StyleSheet.create({
     gap: 5,
   },
 
+  errorMessageContainer: {
+    width: "100%",
+    alignItems: "center",
+    height: 56,
+  },
+
   errorMessage: {
+    color: "#FF0000",
+  },
+
+  logoutBtnContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+
+  logoutBtn: {
+    backgroundColor: "#B31312",
+    paddingHorizontal: 50,
+    paddingVertical: 10,
+
+    borderRadius: 100,
+  },
+
+  logoutBtnText: {
     color: "#FFFFFF",
   },
 });
